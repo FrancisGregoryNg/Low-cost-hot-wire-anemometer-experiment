@@ -28,14 +28,18 @@ void setup()
   pinMode(fan, OUTPUT);                             //set voltage scale as output
   pinMode(scale, OUTPUT);                           //set voltage scale as output
   pinMode(current, INPUT);                          //set current measurement as input
+  
+  //User settings----------------------------------------------------------------------------------
   f = 10;                                           //set the fan setting in percent
+  x = 100;                                          //set initial scale to 100 (out of 255)
+  //User settings----------------------------------------------------------------------------------
+  
   f = map(f, 0, 100, 0, 255);                       //map fan setting from percent to usable value (0 to 255)
   analogWrite(fan, f);                              //output the fan setting to control the fan speed
   Kp = 2;                                           //set P coefficient (source: http://www2.metso.com/MetsoTutor.aspx)
   Ki = 0.2;                                         //set I coefficient (source: http://www2.metso.com/MetsoTutor.aspx)
   Kd = 0.1;                                         //set D coefficient (source: http://www2.metso.com/MetsoTutor.aspx)
   error_int = 0;                                    //set initial integrated error to 0
-  x = 100;                                          //set initial scale to 100 (out of 255)
   analogWrite(scale, x);                            //output the scale to control the voltage (limited to 0-255)
   V = 13.8 * x / 255;                               //calculate the voltage
   delay(5000);                                      //delay 5 seconds for system to stabilize (calibration)    
